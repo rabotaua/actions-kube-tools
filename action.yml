@@ -1,0 +1,9 @@
+name: 'Kubernetes Tools'
+description: 'GitHub Action To Configure Basic Kubernetes Tools'
+inputs:
+  kubeconfig:
+    description: 'kubeconfig file contents'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

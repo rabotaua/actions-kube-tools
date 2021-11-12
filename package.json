@@ -1,0 +1,56 @@
+{
+  "name": "kube-tools",
+  "version": "1.0.0",
+  "description": "GitHub Action To Configure Basic Kubernetes Tools",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "parcel build",
+    "watch": "parcel watch",
+    "build1": "tsc",
+    "build2": "tsc --outDir dist --rootDir src",
+    "build3": "ncc build src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "targets": {
+    "default": {
+      "context": "node",
+      "outputFormat": "commonjs",
+      "isLibrary": true,
+      "optimize": false,
+      "includeNodeModules": true,
+      "sourceMap": false,
+      "source": "src/index.ts",
+      "distDir": "./dist",
+      "engines": {
+        "node": "12"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mac2000/kube-tools.git"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "kubectl",
+    "helm"
+  ],
+  "author": "Alexandr Marchenko <marchenko.alexandr@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mac2000/kube-tools/issues"
+  },
+  "homepage": "https://github.com/mac2000/kube-tools#readme",
+  "devDependencies": {
+    "@vercel/ncc": "^0.31.1",
+    "parcel": "^2.0.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0",
+    "@actions/tool-cache": "^1.7.1"
+  }
+}
