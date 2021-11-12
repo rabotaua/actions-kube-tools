@@ -10,9 +10,11 @@ GitHub Action To Configure Basic Kubernetes Tools
 
 ## Example usage
 
+```yml
 uses: rabotaua/actions-kube-tools@main
 with:
   kubeconfig: ${{ secrets.KUBECONFIG }}
+```
 
 ## Build
 
