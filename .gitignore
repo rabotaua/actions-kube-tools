@@ -1,5 +1,5 @@
-.vscode
 node_modules
-.parcel-cache
-cache
-temp
+coverage
+!.vscode/settings.json
+!.vscode/extensions.json
+.vscode

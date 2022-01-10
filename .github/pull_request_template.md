@@ -1,4 +1,3 @@
-
 **Task:** RUA-123
 
 - **Figma:** https://www.figma.com/file/foo/bar
