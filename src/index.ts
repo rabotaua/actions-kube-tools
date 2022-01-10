@@ -1,61 +1,62 @@
-import * as path from "path";
-import * as fs from "fs";
-import * as crypto from "crypto";
-import * as core from "@actions/core";
-import * as toolCache from "@actions/tool-cache";
+import { join } from "path";
+import { chmod, writeFile } from "fs/promises";
+import { randomBytes } from "crypto";
+import { addPath, getInput, exportVariable, setFailed } from "@actions/core";
+import { find, downloadTool, extractZip, cacheFile } from "@actions/tool-cache";
 
-// process.env.RUNNER_TEMP = process.env.RUNNER_TEMP || path.join(__dirname, '../temp/')
-// process.env.RUNNER_TOOL_CACHE = process.env.RUNNER_TOOL_CACHE || path.join(__dirname, '../cache/')
+export const KUBECTL_VERSION = "1.22.3";
+export const HELM_VERSION = "3.7.1";
 
-async function kubectl(ver: string) {
+async function kubectl() {
   const name = "kubectl";
   const arch = "amd64";
+  const ver = `v${KUBECTL_VERSION}`;
   const url = `https://storage.googleapis.com/kubernetes-release/release/${ver}/bin/linux/${arch}/kubectl`;
 
-  const found = toolCache.find(name, ver, arch);
+  const found = find(name, ver, arch);
   if (found) {
-    core.addPath(found);
+    addPath(found);
   } else {
-    const tool = await toolCache.downloadTool(url);
-    const cached = await toolCache.cacheFile(tool, name, name, ver, arch);
-    fs.chmodSync(path.join(cached, name), "777");
-    core.addPath(cached);
+    const tool = await downloadTool(url);
+    const cached = await cacheFile(tool, name, name, ver, arch);
+    await chmod(join(cached, name), "777");
+    addPath(cached);
   }
 }
 
-async function helm(ver: string) {
+async function helm() {
   const name = "helm";
   const arch = "amd64";
+  const ver = `v${HELM_VERSION}`;
   const url = `https://get.helm.sh/helm-${ver}-linux-${arch}.zip`;
 
-  const found = toolCache.find(name, ver, arch);
+  const found = find(name, ver, arch);
   if (found) {
-    core.addPath(found);
+    addPath(found);
   } else {
-    const zip = await toolCache.downloadTool(url);
-    const tool = await toolCache.extractZip(zip);
+    const zip = await downloadTool(url);
+    const tool = await extractZip(zip);
     // const cached = await toolCache.cacheDir(tool, name, ver, arch)
-    const cached = await toolCache.cacheFile(path.join(tool, `linux-${arch}`, name), name, name, ver, arch);
-    fs.chmodSync(path.join(cached, name), "777");
-    core.addPath(cached);
+    const cached = await cacheFile(join(tool, `linux-${arch}`, name), name, name, ver, arch);
+    await chmod(join(cached, name), "777");
+    addPath(cached);
   }
 }
 
 async function kubeconfig() {
-  const config = core.getInput("kubeconfig", { required: true });
-  const dest = path.join(process.env.RUNNER_TEMP!, crypto.randomBytes(16).toString("hex"));
+  const config = getInput("kubeconfig", { required: true });
+  const dest = join(process.env.RUNNER_TEMP!, randomBytes(16).toString("hex"));
 
-  fs.writeFileSync(dest, config);
-  fs.chmodSync(dest, "600");
+  await writeFile(dest, config);
+  await chmod(dest, "600");
 
-  core.exportVariable("KUBECONFIG", dest);
+  exportVariable("KUBECONFIG", dest);
 }
 
-async function main() {
-  await kubectl("v1.22.3");
-  await helm("v3.7.1");
+export async function main() {
+  await kubectl();
+  await helm();
   await kubeconfig();
-  console.log("done");
 }
 
-main().catch(core.setFailed);
+main().catch(setFailed);

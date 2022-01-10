@@ -15,15 +15,3 @@ uses: rabotaua/actions-kube-tools@main
 with:
   kubeconfig: ${{ secrets.KUBECONFIG }}
 ```
-
-## Build
-
-`npm run build`
-
-**WARNING:** neither `parcel` nor `ncc` do not work under Windows
-
-## TODO
-
-- prettier
-- eslint
-- husky pre commit build OR add action which will build and commit result
