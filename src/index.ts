@@ -11,7 +11,7 @@ async function kubectl(ver: string) {
   const name = 'kubectl'
   const arch = 'amd64'
   const url = `https://storage.googleapis.com/kubernetes-release/release/${ver}/bin/linux/${arch}/kubectl`
-  
+
   const found = toolCache.find(name, ver, arch)
   if (found) {
     core.addPath(found)
@@ -55,6 +55,7 @@ async function main() {
   await kubectl('v1.22.3')
   await helm('v3.7.1')
   await kubeconfig()
+  console.log('done')
 }
 
 main().catch(core.setFailed)

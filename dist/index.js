@@ -5497,6 +5497,7 @@ function main() {
         yield kubectl('v1.22.3');
         yield helm('v3.7.1');
         yield kubeconfig();
+        console.log('done');
     });
 }
 main().catch(core.setFailed);
