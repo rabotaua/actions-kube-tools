@@ -4,13 +4,12 @@ import { randomBytes } from "crypto";
 import { addPath, getInput, exportVariable, setFailed } from "@actions/core";
 import { find, downloadTool, extractZip, cacheFile } from "@actions/tool-cache";
 
-export const KUBECTL_VERSION = "1.22.3";
-export const HELM_VERSION = "3.7.1";
-
 async function kubectl() {
+  const kubectlVersion = getInput("kubectlVersion", { required: true })
+
   const name = "kubectl";
   const arch = "amd64";
-  const ver = `v${KUBECTL_VERSION}`;
+  const ver = `v${kubectlVersion}`;
   const url = `https://storage.googleapis.com/kubernetes-release/release/${ver}/bin/linux/${arch}/kubectl`;
 
   const found = find(name, ver, arch);
@@ -25,9 +24,11 @@ async function kubectl() {
 }
 
 async function helm() {
+  const helmVersion = getInput("helmVersion", { required: true })
+
   const name = "helm";
   const arch = "amd64";
-  const ver = `v${HELM_VERSION}`;
+  const ver = `v${helmVersion}`;
   const url = `https://get.helm.sh/helm-${ver}-linux-${arch}.zip`;
 
   const found = find(name, ver, arch);
