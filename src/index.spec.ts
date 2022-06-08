@@ -1,9 +1,11 @@
 import { rm, readdir, readFile, stat } from "fs/promises";
 import { join } from "path";
-import { main, KUBECTL_VERSION, HELM_VERSION } from "./index";
+import { main } from "./index";
 
 describe("actions-kube-tools", () => {
   it("downloads desired tools", async () => {
+    const KUBECTL_VERSION = "1.22.3";
+    const HELM_VERSION = "3.7.1";
     // reset kubeconfig environment variable
     process.env.KUBECONFIG = "";
 

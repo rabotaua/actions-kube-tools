@@ -5,7 +5,7 @@ import { addPath, getInput, exportVariable, setFailed } from "@actions/core";
 import { find, downloadTool, extractZip, cacheFile } from "@actions/tool-cache";
 
 async function kubectl() {
-  const kubectlVersion = getInput("kubectlVersion", { required: true })
+  const kubectlVersion = getInput("kubectlVersion", { required: true });
 
   const name = "kubectl";
   const arch = "amd64";
@@ -24,7 +24,7 @@ async function kubectl() {
 }
 
 async function helm() {
-  const helmVersion = getInput("helmVersion", { required: true })
+  const helmVersion = getInput("helmVersion", { required: true });
 
   const name = "helm";
   const arch = "amd64";
