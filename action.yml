@@ -4,6 +4,14 @@ inputs:
   kubeconfig:
     description: "kubeconfig file contents"
     required: true
+  kubectlVersion:
+    description: "kubectl version to install"
+    default: "1.22.3"
+    required: false
+  helmVersion:
+    description: "helm version to install"
+    default: "3.7.1"
+    required: false
 runs:
   using: "node16"
   main: "dist/index.js"
