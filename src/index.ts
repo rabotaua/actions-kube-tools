@@ -4,8 +4,11 @@ import { randomBytes } from "crypto";
 import { addPath, getInput, exportVariable, setFailed } from "@actions/core";
 import { find, downloadTool, extractZip, cacheFile } from "@actions/tool-cache";
 
+export const KUBECTL_VERSION = "1.22.3";
+export const HELM_VERSION = "3.7.1";
+
 async function kubectl() {
-  const kubectlVersion = getInput("kubectlVersion", { required: true });
+  const kubectlVersion = getInput("kubectlVersion", { required: false }) || KUBECTL_VERSION;
 
   const name = "kubectl";
   const arch = "amd64";
@@ -24,7 +27,7 @@ async function kubectl() {
 }
 
 async function helm() {
-  const helmVersion = getInput("helmVersion", { required: true });
+  const helmVersion = getInput("helmVersion", { required: false }) || HELM_VERSION;
 
   const name = "helm";
   const arch = "amd64";
