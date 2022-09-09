@@ -6,6 +6,10 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  PR_URL: ${{ github.event.pull_request.html_url }}
+
 jobs:
   dependabot:
     runs-on: ubuntu-latest
@@ -17,4 +21,6 @@ jobs:
           node-version: 14
       - run: npm install
       - run: npm test
-      - run: gh pr merge --auto --merge "${{ github.event.pull_request.html_url }}"
+      - run: echo $GH_TOKEN
+      - run: echo $PR_URL
+      - run: gh pr merge "$PR_URL" --admin --rebase --delete-branch
