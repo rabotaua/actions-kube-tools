@@ -58,5 +58,5 @@ describe("actions-kube-tools", () => {
 
     // cleanup kubeconfig
     await rm(process.env.KUBECONFIG, { force: true });
-  }, 30000);
+  }, 60000);
 });
