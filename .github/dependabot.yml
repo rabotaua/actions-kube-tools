@@ -4,9 +4,6 @@ updates:
     directory: /
     schedule:
       interval: "weekly"
-      day: "friday"
-      time: "12:00"
-      timezone: "Europe/Kiev"
     reviewers:
       - rabotaua/frontend
       - rabotaua/backend
@@ -14,9 +11,6 @@ updates:
     directory: /
     schedule:
       interval: "weekly"
-      day: "friday"
-      time: "12:00"
-      timezone: "Europe/Kiev"
     reviewers:
       - rabotaua/frontend
       - rabotaua/backend
