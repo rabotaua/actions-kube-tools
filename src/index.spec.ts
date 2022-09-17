@@ -11,8 +11,8 @@ describe("actions-kube-tools", () => {
     process.env.INPUT_KUBECONFIG = '{"foo": "bar"}';
 
     // define location of temp and cache directories
-    process.env.RUNNER_TEMP = process.env.RUNNER_TEMP || join(__dirname, "../temp/");
-    process.env.RUNNER_TOOL_CACHE = process.env.RUNNER_TOOL_CACHE || join(__dirname, "../cache/");
+    process.env.RUNNER_TEMP = join(__dirname, "../temp/");
+    process.env.RUNNER_TOOL_CACHE = join(__dirname, "../cache/");
 
     // cleanup previous runs if any
     await rm(process.env.RUNNER_TEMP, { recursive: true, force: true });
