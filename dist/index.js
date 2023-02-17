@@ -6560,8 +6560,8 @@ const promises_1 = __nccwpck_require__(3292);
 const crypto_1 = __nccwpck_require__(6113);
 const core_1 = __nccwpck_require__(2614);
 const tool_cache_1 = __nccwpck_require__(1697);
-exports.KUBECTL_VERSION = "1.22.3";
-exports.HELM_VERSION = "3.7.1";
+exports.KUBECTL_VERSION = "1.24.3"; // https://storage.googleapis.com/kubernetes-release/release/stable.txt
+exports.HELM_VERSION = "3.11.1"; // https://github.com/helm/helm/releases
 function kubectl() {
     return __awaiter(this, void 0, void 0, function* () {
         const kubectlVersion = (0, core_1.getInput)("kubectlVersion", { required: false }) || exports.KUBECTL_VERSION;

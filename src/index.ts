@@ -4,8 +4,8 @@ import { randomBytes } from "crypto";
 import { addPath, getInput, exportVariable, setFailed } from "@actions/core";
 import { find, downloadTool, extractZip, cacheFile } from "@actions/tool-cache";
 
-export const KUBECTL_VERSION = "1.22.3";
-export const HELM_VERSION = "3.7.1";
+export const KUBECTL_VERSION = "1.24.3"; // https://storage.googleapis.com/kubernetes-release/release/stable.txt
+export const HELM_VERSION = "3.11.1"; // https://github.com/helm/helm/releases
 
 async function kubectl() {
   const kubectlVersion = getInput("kubectlVersion", { required: false }) || KUBECTL_VERSION;
