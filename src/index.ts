@@ -3,6 +3,7 @@ import { chmod, writeFile } from "fs/promises";
 import { randomBytes } from "crypto";
 import { addPath, getInput, exportVariable, setFailed } from "@actions/core";
 import { find, downloadTool, extractZip, cacheFile } from "@actions/tool-cache";
+import { exec } from "@actions/exec";
 
 export const KUBECTL_VERSION = "1.22.3";
 export const HELM_VERSION = "3.7.1";
@@ -57,10 +58,19 @@ async function kubeconfig() {
   exportVariable("KUBECONFIG", dest);
 }
 
+async function helmLogin() {
+  const githubUsername = getInput("githubUsername", { required: false });
+  const githubPassword = getInput("githubPassword", { required: false });
+  if (githubUsername && githubPassword) {
+    await exec(`echo '${githubPassword}' | helm registry login ghcr.io -u ${githubUsername} --password-stdin`);
+  }
+}
+
 export async function main() {
   await kubectl();
   await helm();
   await kubeconfig();
+  await helmLogin();
 }
 
 main().catch(setFailed);

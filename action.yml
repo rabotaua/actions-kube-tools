@@ -12,6 +12,12 @@ inputs:
     description: "helm version to install"
     default: "3.7.1"
     required: false
+  githubUsername:
+    description: "github username, if given will be used to login helm to ghcr.io"
+    required: false
+  githubPassword:
+    description: "github password, if given will be used to login helm to ghcr.io"
+    required: false
 runs:
   using: "node16"
   main: "dist/index.js"
