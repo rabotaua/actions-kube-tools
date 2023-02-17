@@ -44,6 +44,7 @@ async function helm() {
     const cached = await cacheFile(join(tool, `linux-${arch}`, name), name, name, ver, arch);
     await chmod(join(cached, name), "777");
     addPath(cached);
+    exportVariable("HELM_EXPERIMENTAL_OCI", "1"); // to avoid enabling it everywhere
   }
 }
 

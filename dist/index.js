@@ -6599,6 +6599,7 @@ function helm() {
             const cached = yield (0, tool_cache_1.cacheFile)((0, path_1.join)(tool, `linux-${arch}`, name), name, name, ver, arch);
             yield (0, promises_1.chmod)((0, path_1.join)(cached, name), "777");
             (0, core_1.addPath)(cached);
+            (0, core_1.exportVariable)("HELM_EXPERIMENTAL_OCI", "1"); // to avoid enabling it everywhere
         }
     });
 }
