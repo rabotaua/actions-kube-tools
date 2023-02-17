@@ -6560,7 +6560,6 @@ const promises_1 = __nccwpck_require__(3292);
 const crypto_1 = __nccwpck_require__(6113);
 const core_1 = __nccwpck_require__(2614);
 const tool_cache_1 = __nccwpck_require__(1697);
-const exec_1 = __nccwpck_require__(2259);
 exports.KUBECTL_VERSION = "1.22.3";
 exports.HELM_VERSION = "3.7.1";
 function kubectl() {
@@ -6612,21 +6611,11 @@ function kubeconfig() {
         (0, core_1.exportVariable)("KUBECONFIG", dest);
     });
 }
-function helmLogin() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const githubUsername = (0, core_1.getInput)("githubUsername", { required: false });
-        const githubPassword = (0, core_1.getInput)("githubPassword", { required: false });
-        if (githubUsername && githubPassword) {
-            yield (0, exec_1.exec)(`echo '${githubPassword}' | helm registry login ghcr.io -u ${githubUsername} --password-stdin`);
-        }
-    });
-}
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         yield kubectl();
         yield helm();
         yield kubeconfig();
-        yield helmLogin();
     });
 }
 exports.main = main;
