@@ -1,12 +1,5 @@
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: "weekly"
-    reviewers:
-      - rabotaua/frontend
-      - rabotaua/backend
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -14,3 +7,26 @@ updates:
     reviewers:
       - rabotaua/frontend
       - rabotaua/backend
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - rabotaua/frontend
+      - rabotaua/backend
+    groups:
+      devDependencies:
+        patterns:
+          - '@types/*'
+          - '@typescript-eslint/*'
+          - 'eslint'
+          - 'eslint-*'
+          - 'husky'
+          - 'jest'
+          - 'lint-staged'
+          - 'prettier'
+          - 'ts-*'
+          - 'typescript'
+      dependencies:
+        patterns:
+          - '@actions/*'
